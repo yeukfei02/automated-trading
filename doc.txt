@@ -1,0 +1,65 @@
+This system is made up of 3 actors: a Market Data Provider, a Bank and an Automated Trader. The Market Data
+
+Provider sends out market prices, the Bank accepts trades, the Automated Trader accepts prices from the Market
+
+Data Provider and sends out trades to the Bank. It is the implementation of the Automated Trader that we are
+
+interested in.
+
+The Automated Trader employs a trading algorithm which, based on the prices it receives, will return a trade to
+
+execute. The trading algorithm must implement the following interface:
+
+public interface TradingAlgorithm {
+
+/**
+
+* Builds a trade to be executed based on the supplied prices.
+
+* @param price data
+
+* @return trade to execute
+
+*/
+
+Trade buildTrades(Price price);
+
+}
+
+A Price is made up of a product name and a numerical price.
+
+A Trade is made up of a product name, a direction (buy or sell), a numerical price and a quantity.
+
+Your task is to write an implementation of the TradingAlgorithm interface that satisfies the following:
+
+Accepts an array of product names (String[]) at the time of construction. These are the products that can be
+
+traded.
+
+Returns a buy trade for a quantity of 1000 at the newest price, if the simple average of the last 4 prices is greater
+
+than the oldest price in that collection of 4 prices e.g. {1,2,3,4} will result in a trade, as will {4,5,6,4} but {9,2,1,4}
+
+will not. In other words a trade will be made when the simple average of a moving window of prices has an
+
+upward trend.
+
+The implementation should be thread-safe, and performant.
+
+No recoverability is required; if the system fails any state stored in memory can be discarded.
+
+Example INPUT and OUTPUT
+
+INPUT							OUTPUT
+------------				--------------
+C UN,2201.00				AAL UW,BUY,7.67,1000
+
+AAPL UW,2209.00
+
+AAL UW,7.60
+
+AAL UW,7.64
+
+AAL UW,7.61
+
+AAL UW,7.67
