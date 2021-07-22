@@ -6,10 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Trading implements TradingAlgorithm {
-    public void run() {
-        List<Price> priceList = getPriceList();
+    private final List<Price> priceList = getPriceList();
+    public Trade resultTrade = null;
 
-        Trade resultTrade = null;
+    public void addNewPriceData(Price price) {
+        priceList.add(price);
+    }
+
+    public void run() {
         if (!priceList.isEmpty()) {
             double sum = 0;
 
@@ -37,7 +41,7 @@ public class Trading implements TradingAlgorithm {
             String resultTradeDirection = resultTrade.getDirection();
             double resultTradePrice = resultTrade.getPrice();
             int resultTradeQuantity = resultTrade.getQuantity();
-            System.out.printf("%s,%s,%.2f,%d", resultTradeProductName, resultTradeDirection, resultTradePrice, resultTradeQuantity);
+            System.out.printf("%s,%s,%.2f,%d \n", resultTradeProductName, resultTradeDirection, resultTradePrice, resultTradeQuantity);
         }
     }
 
