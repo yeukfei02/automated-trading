@@ -12,7 +12,7 @@ read `doc.txt` for project purpose
 
 ```zsh
 // start project
-run Main.java
+- run Main.java
 ```
 
 open project in intellij idea
